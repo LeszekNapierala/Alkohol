@@ -20,7 +20,7 @@
 	<section class="data-to-be-entered">
 		<dl>
 			<dt>
-				<b><center>Obliczenia alkoholu metoda objętościowa</center></b>
+				<b style="line-height: 1cm"><font size="6"><center>Obliczania alkoholu metodą objętościową</center></font></b><br>
 			</dt>
 			<dd>
 				<form action="/calculatePower" method="get">
@@ -29,7 +29,6 @@
 						<tr style="text-align: center;">
 							<td colspan="3">Moc alkoholu etylowego</td>
 							<td colspan="3">Poprawka wg. objętości</td>
-							<td rowspan="2">Obj. 1000kg alk. w 20ºC</td>
 							<td rowspan="2">waga netto</td>
 							<td rowspan="2">dm3 w 20ºC</td>
 							<td rowspan="2">dm3 100% vol.</td>
@@ -46,30 +45,30 @@
 							<td bgcolor="white" width="10%">
 							<input class="form1" type="text"
 								 name="powerMeasured" maxlength="5"
+								 required pattern="10[01][,\.]\d|10[01]|[789]\d[,\.]\d|[789]\d"
 								value="${powerMeasured}" /></td>
 							<td bgcolor="white" width="10%">
 							<input class="form1"  type="text"
-								 name="temperature" maxlength="4"
+								 name="temperature" maxlength="5"
+								 required pattern="-10[,\.][0]|-10|-\d[,\.][05]|[\+]?[012]\d?[,\.][05]|[\+]?[12]\d?|[\+]?30[,\.][0]|[\+]?30"
 								value="${temperatureDouble}" /></td>
 							<td class="form1" bgcolor="yellow" width="10%">${realPower}</td>
 							<td bgcolor="white" width="10%">
-							<input class="form1" type="text"
-								 name="givenVolume" maxlength="7"
+							<input class="form1" type="number"
+								 name="givenVolume" min = "1" maxlength="8"
 								value="${givenVolumeInt}" /></td>
 							<td bgcolor="white" width="10%"><input class="form1" type="text"
-								 name="temperatureTank" maxlength="4"
+								 name="temperatureTank" maxlength="5"
+								 required pattern="-10[,\.][0]|-10|-\d[,\.][05]|[\+]?[012]\d?[,\.][05]|[\+]?[12]\d?|[\+]?30[,\.][0]|[\+]?30"
 								value="${temperatureTankDouble}" /></td>
 							<td class="form1" bgcolor="yellow" width="10%">${correctionCalculated}</td>
-							<td class="form1" bgcolor="yellow" width="10%">${volumeCalculated}</td>
 							<td class="form1" bgcolor="yellow" width="10%">${netWeight}</td>
 							<td class="form1" bgcolor="yellow" width="10%">${volumeIn20DegreesView}</td>
 							<td class="form1" bgcolor="yellow" width="10%">${volumeOf100Percent}</td>
 						</tr>
-					</table>
-					<button 
-						onclick="function(event){$('.form1').val(''); $('td[bgcolor=yellow]').html(''); event.preventDefault() }" >
-						wyczyść formularz
-						</button>
+					</table><br>
+					<input type="reset" value="wyczyść formularz"
+						onclick="$('td[bgcolor=yellow]').html('')" />
 					<input type="submit" />
 
 
@@ -77,10 +76,9 @@
 
 			</dd>
 
-			<br>
-			<br>
+			<br><br><br>
 			<dt>
-				<b><center>Obliczenia alkoholu metoda wagowa</center></b>
+				<b><font size="6"><center>Obliczania alkoholu metodą wagową</center></font></b><br>
 			</dt>
 			<dd>
 				<form action="calculateWeigth" method="get">
@@ -103,24 +101,26 @@
 						</tr>
 						<tr class="f1" style="text-align: center;">
 							<td bgcolor="white" width="10%"><input type="text"
-								placeholder="np 85,4" name="powerMeasuredWeigth" maxlength="5"
+								name="powerMeasuredWeigth" maxlength="5"
+								required pattern="10[01][,\.]\d|10[01]|[789]\d[,\.]\d|[789]\d"
 								value="${powerMeasuredWeigth}" /></td>
 							<td bgcolor="white" width="10%"><input type="text"
-								placeholder="np 24,5" name="temperatureWeigth" maxlength="4"
+								name="temperatureWeigth" maxlength="5"
+								required pattern="-10[,\.][0]|-10|-\d[,\.][05]|[\+]?[012]\d?[,\.][05]|[\+]?[12]\d?|[\+]?30[,\.][0]|[\+]?30"
 								value="${temperatureDoubleWeigth}" /></td>
 							<td bgcolor="yellow" width="10%">${realPowerWeigth}</td>
-							<td bgcolor="white" width="10%"><input type="text"
-								placeholder="np 48600" name="grossWeight" maxlength="7"
+							<td bgcolor="white" width="10%"><input type="number"
+								name="grossWeight" min = "1" maxlength="8"
 								value="${grossWeightInt}" /></td>
-							<td bgcolor="white" width="10%"><input type="text"
-								placeholder="np 18700" name="tareWeigth" maxlength="7"
+							<td bgcolor="white" width="10%"><input type="number"
+								name="tareWeigth" min = "0" maxlength="8"
 								value="${tareWeigthInt}" /></td>
 							<td bgcolor="yellow" width="10%">${calculatedNetWeight}</td>
 							<td bgcolor="yellow" width="10%">${volumeIn20DegreesWegth}</td>
 							<td bgcolor="yellow" width="10%">${volumeOf100PercentWegthInt}</td>
 
 						</tr>
-					</table>
+					</table><br>
 					<input type="reset" value="wyczyść formularz"
 						onclick="$('td[bgcolor=yellow]').html('')" />
 					<input type="submit" />

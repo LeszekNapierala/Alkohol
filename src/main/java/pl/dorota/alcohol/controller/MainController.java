@@ -49,7 +49,7 @@ public class MainController {
 			temperatureDouble = Double.valueOf(temperature.trim().replaceAll(",", "."));
 		}
 		catch (NumberFormatException e) {
-			errors.add("Niepoprawna wartość temperatury");
+			errors.add("Niepoprawna wartość temperatury, podaj w przedziale -10 do +30  co 0,5");
 		}
 		model.addAttribute("temperatureDouble", temperatureDouble);
 		double powerMeasuredDouble = 0.0;
@@ -57,7 +57,7 @@ public class MainController {
 			powerMeasuredDouble = Double.valueOf(powerMeasured.trim().replaceAll(",", "."));
 		}
 		catch (NumberFormatException e) {
-			errors.add("Niepoprawna wartość mocy");
+			errors.add("Niepoprawna wartość mocy, podaj w przedziale 70-101,9  co 0,1");
 		}
 
 		model.addAttribute("powerMeasured", powerMeasured);
@@ -79,7 +79,7 @@ public class MainController {
 			temperatureTankDouble = Double.valueOf(temperatureTank.trim().replaceAll(",", "."));
 		}
 		catch (NumberFormatException e) {
-			errors.add("Niepoprawna wartość temperatury, podaj w przedziale -10º do +30º  co 0,5");
+			errors.add("Błędna wartość temperatury zbiornika , podaj w przedziale -10º do +30º  co 0,5");
 		}
 		model.addAttribute("temperatureTankDouble", temperatureTankDouble);
 		int givenVolumeInt = 0;
@@ -87,7 +87,7 @@ public class MainController {
 			givenVolumeInt = Integer.valueOf(givenVolume.trim());
 		}
 		catch (NumberFormatException e) {
-			errors.add("Niepoprawna wartość objętości");
+			errors.add("Niepoprawna wartość objętości podaj liczbe całkowitą wiekszą od 0");
 		}
 		model.addAttribute("givenVolumeInt", givenVolumeInt);
 		// z tablicy 7c
@@ -147,7 +147,7 @@ public class MainController {
 			temperatureDoubleWeigth = Double.valueOf(temperatureWeigth.trim().replaceAll(",", "."));
 		}
 		catch (NumberFormatException e) {
-			errors.add("Niepoprawna wartość temperatury");
+			errors.add("Niepoprawna wartość temperatury, podaj w przedziale -10 do +30  co 0,5");
 		}
 		model.addAttribute("temperatureDoubleWeigth", temperatureDoubleWeigth);
 		double powerMeasuredDoubleWeigth = 0.0;
@@ -155,15 +155,19 @@ public class MainController {
 			powerMeasuredDoubleWeigth = Double.valueOf(powerMeasuredWeigth.trim().replaceAll(",", "."));
 		}
 		catch (NumberFormatException e) {
-			errors.add("Niepoprawna wartość mocy");
+			errors.add("Niepoprawna wartość mocy, podaj w przedziale 70-101,9  co 0,1");
 		}
 		model.addAttribute("powerMeasuredWeigth", powerMeasuredWeigth);
+		if (errors.isEmpty()) {
 		AlcoholPower alcoholPowerWeigth = alcoholPowerRepository.findByTemperatureAndPowerMeasured(temperatureDoubleWeigth, powerMeasuredDoubleWeigth);
 		model.addAttribute("powerCalculatedWeigth", (alcoholPowerWeigth != null) ? alcoholPowerWeigth.powerCalculated : "brak wartości");
 		realPowerWeigth = alcoholPowerWeigth.powerCalculated * 10;
 		realPowerWeigth = Math.round(realPowerWeigth);
 		realPowerWeigth /= 10;
-
+		} else {
+			model.addAttribute("errors", errors);
+			return "calculatePowerError";
+		}
 		model.addAttribute("realPowerWeigth", realPowerWeigth);
 
 
@@ -191,6 +195,7 @@ public class MainController {
 		int auxiliaryVariable2 = 0; //*1
 		int auxiliaryVariable3 = 0; // /100
 		double volumeOf100PercentWegth = 0.0;
+		if (errors.isEmpty()) {
 		if (calculatedNetWeight>10000) {
 			auxiliaryVariable1 = calculatedNetWeight / 1000; // = 29
 			auxiliaryVariable1 = auxiliaryVariable1 * 10;	//290
@@ -213,9 +218,14 @@ public class MainController {
 			model.addAttribute("volumeCalculated1", (volumeAlcoholWeight3 != null) ? volumeAlcoholWeight3.volumeCalculated : "brak wartości");
 			volumeOf100PercentWegth = volumeAlcoholWeight3.volumeCalculated / 100;
 		}
+		} else {
+			model.addAttribute("errors", errors);
+			return "calculatePowerError";
+		}
 		int volumeOf100PercentWegthInt = (int)Math.round(volumeOf100PercentWegth);
 		model.addAttribute("volumeOf100PercentWegthInt", volumeOf100PercentWegthInt);
-		int volumeIn20DegreesWegth = (int)Math.round(100.0 * volumeOf100PercentWegthInt/realPowerWeigth);
+		double volumeIn20DegreesWegth = Math.round(10000.0 * volumeOf100PercentWegthInt/realPowerWeigth);
+		volumeIn20DegreesWegth /= 100;
 		model.addAttribute("volumeIn20DegreesWegth", volumeIn20DegreesWegth);
 
 
