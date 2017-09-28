@@ -1,0 +1,26 @@
+1. Instalacja 
+
+2. Uruchomienie programu:
+	
+	w przeglądarce wpisujemy adres http://localhost:8080
+	
+3. Mamy dwie metody wyboru obliczeń alkoholu:
+ - Obliczania alkoholu metodą objętościową
+ - Obliczania alkoholu metodą wagową
+ 
+4. Po wybraniu metody rozwija się tabela z formularzem do wprowadzenia danych.
+	w formularzu z metoda objętościową uzupełniamy pola:
+	 - Moc pozorna				(zakres pola 80 do 101,9)
+	 - Temperatura zmierzona	(zakres -10 do 30ºC co 0,5ºC)
+	 - dm3						(objętość liczba >0)
+	 - Temperatura w zbiorniku	(zakres -10 do 30ºC co 0,5ºC)
+	w formularzu z metoda objętościową uzupełniamy pola:
+	 - Moc pozorna				(zakres pola 80 do 101,9)
+	 - Temperatura zmierzona	(zakres -10 do 30ºC co 0,5ºC)
+	 - brutto					(waga brutto liczba >0)
+	 - tara						(waga tara liczba >0 i <brutto)
+	 
+5. Po naciśnięciu przycisku <Oblicz> tabela zwinie się i kliknięciu na daną metodę rozwinie się tabela z wyliczonymi wartościami.
+6. Po naciśnięciu przycisku <Wyczyść> wszystkie pola z wpisanymi wartościami zostana wyczyszczone.
+	Można ponownie wpisywać nowe wartości (patrz p.3 i p.4)
+
