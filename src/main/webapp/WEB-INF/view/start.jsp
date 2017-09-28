@@ -13,7 +13,7 @@
 </style>
 </head>
 <body bgcolor="silver">
-
+<a href="opis.html">opis aplikacji Alkohol</a><br>
 
 
 
@@ -139,7 +139,7 @@ $(function(){
 	ex3.find('dd').hide();
 	var dts = ex3.find('dt');
 	dts.on('click',function(){
-		$(this).next().toggle();
+		$(this).next().toggle("slow");
 	});
 });
 function clearForm(AForm)

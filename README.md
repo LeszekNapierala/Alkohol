@@ -11,7 +11,7 @@ Po wprowadzeniu danych w formularzu odczytuje z bazy te wartości i wyświetla j
 
 ## Przykład
 
-Wprowadzenie do bazy danych jednej z tabeli z pliku tekstowego:
+Wprowadzenie do bazy danych jednej tabeli z pliku tekstowego:
 
 ```Java
 resource = resourceLoader.getResource("classpath:tablice9b.csv");
@@ -46,3 +46,19 @@ resource = resourceLoader.getResource("classpath:tablice9b.csv");
 			}
 
 ```
+## Opis działania aplikacji
+
+Opis działania aplikacji w pliku opis.txt
+
+## Instalacja
+
+Po pomyślnym zainstalowaniu programu Alkohol uruchom następujące w przeglądarce: http://localhost:8080
+
+## Licencja
+
+MIT
+
+(c) Leszek Napierała
+leszeknapieralaoborniki@gmail.com
+
+
