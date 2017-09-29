@@ -1,7 +1,7 @@
 1. Instalacja 
 
 2. Uruchomienie programu:
-	
+	za pomoca polecenia: java -jar alcohol-0.1.0.jar
 	w przeglądarce wpisujemy adres http://localhost:8080
 	
 3. Mamy dwie metody wyboru obliczeń alkoholu:
