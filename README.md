@@ -52,7 +52,8 @@ Opis działania aplikacji w pliku opis.txt
 
 ## Instalacja
 
-Po pomyślnym zainstalowaniu programu Alkohol uruchom następujące w przeglądarce: http://localhost:8080
+Spakowanie projektu Spring Boot do jara poleceniem: ```mvn package```
+Po pomyślnym zainstalowaniu programu Alkohol uruchom w przeglądarce: http://localhost:8080
 
 ## Licencja
 

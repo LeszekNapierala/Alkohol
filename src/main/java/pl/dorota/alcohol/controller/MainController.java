@@ -202,38 +202,68 @@ public class MainController {
 		int calculatedNetWeight = grossWeightInt - tareWeigthInt;
 		model.addAttribute("calculatedNetWeight", calculatedNetWeight);
 		//------------------------------------------
-		//podział wagi 29987 na poszczególne elementy możliwe do odczytu z tablicy 100 do 1000kg
-		int auxiliaryVariable1 = 0; //*100
-		int auxiliaryVariable2 = 0; //*1
-		int auxiliaryVariable3 = 0; // /100
+		int auxiliaryVariable = 0; // zmienna pomocnicza do obliczeń
+		int temporary = calculatedNetWeight; 
+		int[] array = new int[6]; // tablica przchowująca wagę natto rozbitą na wartości, aby odczytać z z tablicy 100 do 1000kg	
 		double volumeOf100PercentWegth = 0.0;
 		if (errors.isEmpty()) {
-			if (calculatedNetWeight>10000) {
-				auxiliaryVariable1 = calculatedNetWeight / 1000; // = 29
-				auxiliaryVariable1 = auxiliaryVariable1 * 10;	//290
-				VolumeAlcohol volumeAlcoholWeight1 = volumeAlcoholRepository.findByGivenWeightAndPowerMeasuredD(auxiliaryVariable1, realPowerWeigth);
-				model.addAttribute("volumeCalculated1", (volumeAlcoholWeight1 != null) ? volumeAlcoholWeight1.volumeCalculated : "brak wartości");
-				volumeOf100PercentWegth = volumeAlcoholWeight1.volumeCalculated * 100 ;
+			if (temporary>=100000 && temporary < 1000000) {
+				auxiliaryVariable = temporary / 10000;
+				array[0] = 10 * auxiliaryVariable;
+				VolumeAlcohol volumeAlcoholWeight = volumeAlcoholRepository.findByGivenWeightAndPowerMeasuredD(array[0], realPowerWeigth);
+				model.addAttribute("volumeCalculated", (volumeAlcoholWeight != null) ? volumeAlcoholWeight.volumeCalculated : "brak wartości");
+				volumeOf100PercentWegth = volumeOf100PercentWegth + volumeAlcoholWeight.volumeCalculated * 1000 ;			
 			}
-			auxiliaryVariable2 = calculatedNetWeight - auxiliaryVariable1*100; //29987-29000=987
-			if (auxiliaryVariable2>100) {
-				auxiliaryVariable2 = auxiliaryVariable2 / 10; // 98
-				auxiliaryVariable2 = auxiliaryVariable2 * 10; //980
-				VolumeAlcohol volumeAlcoholWeight2 = volumeAlcoholRepository.findByGivenWeightAndPowerMeasuredD(auxiliaryVariable2, realPowerWeigth);
-				model.addAttribute("volumeCalculated1", (volumeAlcoholWeight2 != null) ? volumeAlcoholWeight2.volumeCalculated : "brak wartości");
-				volumeOf100PercentWegth += volumeAlcoholWeight2.volumeCalculated ;
+			temporary = temporary - array[0] * 1000;
+			if (temporary>=10000) {
+				auxiliaryVariable = temporary / 1000;
+				array[1] = 10 * auxiliaryVariable;
+				VolumeAlcohol volumeAlcoholWeight = volumeAlcoholRepository.findByGivenWeightAndPowerMeasuredD(array[1], realPowerWeigth);
+				model.addAttribute("volumeCalculated", (volumeAlcoholWeight != null) ? volumeAlcoholWeight.volumeCalculated : "brak wartości");
+				volumeOf100PercentWegth = volumeOf100PercentWegth + volumeAlcoholWeight.volumeCalculated * 100 ;			
 			}
-			auxiliaryVariable3 = calculatedNetWeight - auxiliaryVariable1*100 - auxiliaryVariable2; //29987 - 290*100 - 980 = 7
-			if (auxiliaryVariable3>0) {
-				auxiliaryVariable3 = auxiliaryVariable3 * 100; // 700
-				VolumeAlcohol volumeAlcoholWeight3 = volumeAlcoholRepository.findByGivenWeightAndPowerMeasuredD(auxiliaryVariable3, realPowerWeigth);
-				model.addAttribute("volumeCalculated1", (volumeAlcoholWeight3 != null) ? volumeAlcoholWeight3.volumeCalculated : "brak wartości");
-				volumeOf100PercentWegth = volumeAlcoholWeight3.volumeCalculated / 100;
+			temporary = temporary - array[1] * 100;
+			if (temporary>=1000) {
+				auxiliaryVariable = temporary / 100;
+				array[2] = 10 * auxiliaryVariable;
+				VolumeAlcohol volumeAlcoholWeight = volumeAlcoholRepository.findByGivenWeightAndPowerMeasuredD(array[2], realPowerWeigth);
+				model.addAttribute("volumeCalculated", (volumeAlcoholWeight != null) ? volumeAlcoholWeight.volumeCalculated : "brak wartości");
+				volumeOf100PercentWegth = volumeOf100PercentWegth + volumeAlcoholWeight.volumeCalculated * 10 ;			
 			}
-		} else {
+			temporary = temporary - array[2] * 10;
+			if (temporary>=100) {
+				auxiliaryVariable = temporary / 10;
+				array[3] = 10 * auxiliaryVariable;
+				VolumeAlcohol volumeAlcoholWeight = volumeAlcoholRepository.findByGivenWeightAndPowerMeasuredD(array[3], realPowerWeigth);
+				model.addAttribute("volumeCalculated", (volumeAlcoholWeight != null) ? volumeAlcoholWeight.volumeCalculated : "brak wartości");
+				volumeOf100PercentWegth = volumeOf100PercentWegth + volumeAlcoholWeight.volumeCalculated * 1 ;			
+			}
+			temporary = temporary - array[3] * 1;
+			if (temporary>=10) {
+				auxiliaryVariable = temporary / 1;
+				array[4] = 10 * auxiliaryVariable;
+				VolumeAlcohol volumeAlcoholWeight = volumeAlcoholRepository.findByGivenWeightAndPowerMeasuredD(array[4], realPowerWeigth);
+				model.addAttribute("volumeCalculated", (volumeAlcoholWeight != null) ? volumeAlcoholWeight.volumeCalculated : "brak wartości");
+				volumeOf100PercentWegth = volumeOf100PercentWegth + volumeAlcoholWeight.volumeCalculated * 0.1 ;			
+			}
+			temporary = temporary - (int)(array[4] * 0.1); //to jest liczba całkowita
+			if (temporary>=1) {
+				auxiliaryVariable = temporary * 10;
+				array[5] = 10 * auxiliaryVariable;
+				VolumeAlcohol volumeAlcoholWeight = volumeAlcoholRepository.findByGivenWeightAndPowerMeasuredD(array[5], realPowerWeigth);
+				model.addAttribute("volumeCalculated", (volumeAlcoholWeight != null) ? volumeAlcoholWeight.volumeCalculated : "brak wartości");
+				volumeOf100PercentWegth = volumeOf100PercentWegth + volumeAlcoholWeight.volumeCalculated * 0.01 ;			
+			}
+			//temporary = temporary - (int)(array[5] * 0.01); // 0
+			
+			
+		}else {
 			model.addAttribute("errors", errors);
 			return "calculatePowerError";
 		}
+		
+		
+		
 		// wyliczenie objętości spirytusu 100% i objęjetości w 20 stopniach 
 		int volumeOf100PercentWegthInt = (int)Math.round(volumeOf100PercentWegth);
 		model.addAttribute("volumeOf100PercentWegthInt", volumeOf100PercentWegthInt);

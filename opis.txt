@@ -1,8 +1,10 @@
-1. Instalacja 
+1. Instalacja:
+   skopiować folder Alkohol na dysk 
 
 2. Uruchomienie programu:
-	za pomoca polecenia: java -jar alcohol-0.1.0.jar
+	za pomoca polecenia wewnątrz folderu alkohol: java -jar target\alcohol-0.1.0.jar
 	w przeglądarce wpisujemy adres http://localhost:8080
+	lub za pomocą pliku wsadowego alkohol.bat (pierwsza uruchamia się przeglądarka z pod adresem localhost:8080 należy poczekać od kilku do kilkudziesięciu sekund aż uruchami się Spring Boot)
 	
 3. Mamy dwie metody wyboru obliczeń alkoholu:
  - Obliczania alkoholu metodą objętościową
