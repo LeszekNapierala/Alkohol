@@ -108,7 +108,9 @@ public class MainController {
 			CorrectionToVolume correctionToVolume = correctionToVolumeRepository.findByTemperatureTankAndPowerMeasuredInt(temperatureTankDouble, powerMeasuredInteger);
 			model.addAttribute("correctionCalculated", (correctionToVolume != null) ? correctionToVolume.correctionCalculated : "brak wartości");
 			// poprawka 0,07 do temperatury 20
-			correction = correctionToVolume.correctionCalculated - 0.07;
+			correction = (correctionToVolume.correctionCalculated - 0.07) * 100;
+			correction = Math.round(correction);
+			correction = correction / 100;
 			correctionCalculatedTxt = correctionToVolume.correctionCalculated + " - 0.07 = " + correction;
 		} else {
 			model.addAttribute("errors", errors);
