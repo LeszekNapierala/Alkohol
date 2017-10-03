@@ -1,5 +1,6 @@
 1. Instalacja:
    skopiować folder Alkohol na dysk 
+   wymagania Java 1.8
 
 2. Uruchomienie programu:
 	za pomoca polecenia wewnątrz folderu alkohol: java -jar target\alcohol-0.1.0.jar

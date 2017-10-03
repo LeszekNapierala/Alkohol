@@ -59,7 +59,7 @@
 								type="text" name="temperatureTank" maxlength="5" required
 								pattern="-10[,\.][0]|-10|-\d[,\.][05]|[\+]?[012]\d?[,\.][05]|[\+]?[12]\d?|[\+]?30[,\.][0]|[\+]?30"
 								value="${temperatureTankDouble}" /></td>
-							<td class="form1" bgcolor="yellow" width="10%">${correctionCalculated}</td>
+							<td class="form1" bgcolor="yellow" width="10%">${correctionCalculatedTxt}</td>
 							<td class="form1" bgcolor="yellow" width="10%">${netWeight}</td>
 							<td class="form1" bgcolor="yellow" width="10%">${volumeIn20DegreesView}</td>
 							<td class="form1" bgcolor="yellow" width="10%">${volumeOf100Percent}</td>

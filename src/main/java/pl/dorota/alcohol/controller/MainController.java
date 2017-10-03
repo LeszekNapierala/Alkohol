@@ -103,15 +103,18 @@ public class MainController {
 		
 		
 		double correction = 0.0;
+		String correctionCalculatedTxt = "";
 		if (errors.isEmpty()) {
 			CorrectionToVolume correctionToVolume = correctionToVolumeRepository.findByTemperatureTankAndPowerMeasuredInt(temperatureTankDouble, powerMeasuredInteger);
 			model.addAttribute("correctionCalculated", (correctionToVolume != null) ? correctionToVolume.correctionCalculated : "brak wartości");
 			// poprawka 0,07 do temperatury 20
 			correction = correctionToVolume.correctionCalculated - 0.07;
+			correctionCalculatedTxt = correctionToVolume.correctionCalculated + " - 0.07 = " + correction;
 		} else {
 			model.addAttribute("errors", errors);
 			return "calculatePowerError";
 		}
+		model.addAttribute("correctionCalculatedTxt", correctionCalculatedTxt);
 		//------------------------------------- z tablicy 9b
 		int givenWeightInt = 1000;
 		// pobieramy moc rzeczywista obliczoną z tablicy 7c
